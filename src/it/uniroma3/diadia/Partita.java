@@ -10,8 +10,12 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 /**
  * Questa classe modella una partita del gioco
  *
- * @author  docente di POO
+ * @author  angel & ale.papa10 
+ * 			(da un'idea del docente POO)	
+ * @see Labirinto
  * @see Stanza
+ * @see Giocatore
+ * 
  * @version base
  */
 
@@ -42,7 +46,15 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return this.getStanzaCorrente()== this.labirinto.getStanzaVincente();
+		return this.getStanzaCorrente() == this.labirinto.getStanzaVincente();
+	}
+	
+	/**
+	 * Restituisce vero se e solo se i cfu sono finiti
+	 * @return vero se cfu finiti
+	 */
+	public boolean giocatoreIsVivo() {
+		return this.giocatore.getCfu() == 0;
 	}
 
 	/**
@@ -50,7 +62,7 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || (this.giocatore.getCfu() == 0);
+		return finita || vinta() || this.giocatoreIsVivo();
 	}
 
 	/**

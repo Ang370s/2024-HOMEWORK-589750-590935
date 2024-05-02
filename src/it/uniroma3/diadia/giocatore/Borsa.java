@@ -2,12 +2,30 @@ package it.uniroma3.diadia.giocatore;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
+/**
+ * Questa classe gestisce la borsa che possiede il giocatore
+ * dove può riporre gli attrezzi che prende dalle stanze
+ * fino a quando c'è spazio in essa. Può anche decidere
+ * di togliere attrezzi dalla borsa
+ * 
+ * @author  angel & ale.papa10 
+ * 			(da un'idea del docente POO)
+ * 
+ * @see Attrezzo
+ * 
+ * @version base
+ */
+
 public class Borsa {
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;
 	private Attrezzo[] attrezzi;
 	private int numeroAttrezzi;
 	private int pesoMax;
 	
+	/**
+	 * Costruttore che crea una borsa con il numero
+	 * fisso (10) di peso massimo ospitabile
+	 */
 	public Borsa() {
 		this(DEFAULT_PESO_MAX_BORSA);
 	}
@@ -76,10 +94,6 @@ public class Borsa {
 	    return a;
 	}
 
-	
-	
-	
-	
 	
 	public String toString() {
 		StringBuilder s = new StringBuilder();

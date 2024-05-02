@@ -21,7 +21,7 @@ public class GiocatoreTest {
 	}
 	
 	@Test
-	void testsetCfu() {
+	void testSetCfu() {
 		g.setCfu(10);
 		assertEquals(10, g.getCfu());
 	}

@@ -27,8 +27,6 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	
-	static final private String[] elencoComandi = {"prendi", "posa","vai", "aiuto", "fine"};
 
 	private Partita partita;
 	private IOConsole IO;
@@ -54,43 +52,35 @@ public class DiaDia {
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 */
 	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire = new Comando(istruzione);
+		Comando comandoDaEseguire;
+		
+		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
+		comandoDaEseguire = factory.costruisciComando(istruzione);
+		comandoDaEseguire.esegui(this.partita);
+		
+		if (this.partita.vinta())
+			System.out.println("Hai vinto!");
+		if (!this.partita.giocatoreIsVivo())
+			System.out.println("Hai esaurito i CFU...");
 
-		if (comandoDaEseguire.getNome().equals("fine")) {
-			this.fine(); 
-			return true;
-		} else if (comandoDaEseguire.getNome().equals("vai"))
-			this.vai(comandoDaEseguire.getParametro());
-		else if (comandoDaEseguire.getNome().equals("prendi"))
-				this.prendi(comandoDaEseguire.getParametro());
-			else if (comandoDaEseguire.getNome().equals("posa"))
-					this.posa(comandoDaEseguire.getParametro());
-		else if (comandoDaEseguire.getNome().equals("aiuto"))
-			this.aiuto();
-		else
-			this.IO.mostraMessaggio("Comando sconosciuto");
-		if (this.partita.vinta()) {
-			this.IO.mostraMessaggio("Hai vinto!");
-			return true;
-		} else
-			return false;
+		return this.partita.isFinita();
 	}   
 
 	// implementazioni dei comandi dell'utente:
 
 	/**
 	 * Stampa informazioni di aiuto.
-	 */
+	 *
 	private void aiuto() {
 		for(int i=0; i < elencoComandi.length; i++) 
 			this.IO.mostraMessaggio(elencoComandi[i]+" ");
 		this.IO.mostraMessaggio("\n");
-	}
+	}/
 
 	/**
 	 * Cerca di andare in una direzione. Se c'e' una stanza ci entra 
 	 * e ne stampa il nome, altrimenti stampa un messaggio di errore
-	 */
+	 *
 	private void vai(String direzione) {
 		if(direzione==null)
 			this.IO.mostraMessaggio("Dove vuoi andare ?");
@@ -108,12 +98,12 @@ public class DiaDia {
 			}
 		}
 		this.IO.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
-	}
+	}/
 	
 	
 	/**
 	 * Comando "Prendi".
-	 */
+	 *
 	public void prendi(String nomeAttrezzo) {
         Attrezzo attrezzo = this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
         if(attrezzo == null)
@@ -125,11 +115,11 @@ public class DiaDia {
             } else
             	this.IO.mostraMessaggio("Non c'e' abbastanza spazio nella borsa per contenere l'oggetto.");
         }
-    }
+    }*/
 	
 	/**
 	 * Comando "Posa".
-	 */
+	 *
 	public void posa(String nomeAttrezzo) {
         Attrezzo attrezzo = this.partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
         if(attrezzo == null)
@@ -141,14 +131,14 @@ public class DiaDia {
             } else
             	this.IO.mostraMessaggio("Non e' possibile posare l'attrezzo qui perche' la stanza e' piena");
         }
-    }
+    }*
 
 	/**
 	 * Comando "Fine".
-	 */
+	 *
 	private void fine() {
 		this.IO.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
-	}
+	} */
 
 	public static void main(String[] argc) {
 		IOConsole IO = new IOConsole();

@@ -7,8 +7,11 @@ package it.uniroma3.diadia.attrezzi;
  * del labirinto.
  * Ogni attrezzo ha un nome ed un peso.
  *
- * @author  docente di POO
+ * @author  angel & ale.papa10 
+ * 			(da un'idea del docente POO)
+ * 
  * @see Stanza
+ * 
  * @version base
  */
 public class Attrezzo {

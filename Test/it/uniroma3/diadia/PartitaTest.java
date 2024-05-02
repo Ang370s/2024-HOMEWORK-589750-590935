@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
+import it.uniroma3.diadia.ambienti.Stanza;
+
 public class PartitaTest {
 
 	private Partita p1;
@@ -15,6 +17,11 @@ public class PartitaTest {
 	
 	@Test
 	public void testGetStanzaCorrenteGiusta() {
+		assertEquals("Atrio", p1.getStanzaCorrente().getNome());
+	}
+	
+	@Test
+	public void testGetStanzaCorrenteGiustaDopoEssersiMosso() {
 		assertEquals("Atrio", p1.getStanzaCorrente().getNome());
 	}
 	

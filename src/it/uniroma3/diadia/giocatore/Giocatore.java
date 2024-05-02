@@ -1,5 +1,15 @@
 package it.uniroma3.diadia.giocatore;
 
+/**
+ * Classe che gestisce il giocatore e i suoi CFU
+ * 
+ * @author angel & ale.papa10
+ * 
+ * @see Borsa
+ * 
+ * @version base
+ */
+
 public class Giocatore {
 	
 	static final private int CFU_INIZIALI = 20;
