@@ -1,16 +1,20 @@
 package it.uniroma3.diadia;
 
+import it.uniroma3.diadia.comandi.ComandoPrendi;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
 class ComandoPrendiTest {
 	
-	ComandoPrendi prendi;
-	Partita partita;
+	private ComandoPrendi prendi;
+	private Partita partita;
+	private IO io;
 	
 	@BeforeEach
 	void setUp() {
+		this.io = new IOConsole();
 		this.prendi = new ComandoPrendi("osso");
 		this.partita = new Partita();
 	}
@@ -20,7 +24,7 @@ class ComandoPrendiTest {
 	 */
 	@Test
 	void testEseguiGiusta() {
-		prendi.esegui(this.partita);
+		prendi.esegui(this.io, this.partita);
 		assertEquals("osso", this.partita.getGiocatore().getBorsa().getAttrezzo("osso").getNome());
 	}
 	
@@ -31,7 +35,7 @@ class ComandoPrendiTest {
 	@Test
 	void testEseguiNonTrovato() {
 		prendi.setParametro("lanterna");
-		prendi.esegui(this.partita);
+		prendi.esegui(this.io, this.partita);
 		assertNull(this.partita.getGiocatore().getBorsa().getAttrezzo("lanterna"));
 	}
 

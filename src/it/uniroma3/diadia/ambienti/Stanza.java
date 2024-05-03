@@ -166,26 +166,6 @@ public class Stanza {
 		}
 		return attrezzoCercato;	
 	}
-
-	/**
-	 * Rimuove un attrezzo dalla stanza (ricerca in base al nome).
-	 * @param nomeAttrezzo
-	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
-	 */
-	/*public boolean removeAttrezzo(Attrezzo attrezzo) {
-        int posAttrezzo = -1;
-        for(Attrezzo aTemp: attrezzi) {
-        	if(aTemp != null) {
-	            posAttrezzo++;
-	            if(aTemp.equals(attrezzo)) {
-	                attrezzi[posAttrezzo] = null;
-	                numeroAttrezzi--;
-	                return true;
-	            }
-        	}
-        }
-        return false;
-    }*/
 	
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
 	    int posAttrezzo = -1;
@@ -205,12 +185,7 @@ public class Stanza {
 	    }
 	    return false;
 	}
-
 	
-	
-	
-
-
 	public String[] getDirezioni() {
 		String[] direzioni = new String[this.numeroStanzeAdiacenti];
 	    for(int i=0; i<this.numeroStanzeAdiacenti; i++)
