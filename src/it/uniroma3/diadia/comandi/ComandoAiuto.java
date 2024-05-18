@@ -5,7 +5,7 @@ import it.uniroma3.diadia.IO;
 
 public class ComandoAiuto implements Comando{
 
-	static final private String[] elencoComandi = {"prendi", "posa","vai", "aiuto", "fine"};
+	static final private String[] elencoComandi = {"guarda", "prendi", "posa","vai", "aiuto", "fine"};
 	final private String nome = "Aiuto";
 	
 	@Override

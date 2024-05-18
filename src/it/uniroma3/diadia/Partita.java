@@ -26,8 +26,8 @@ public class Partita {
 	private Stanza stanzaCorrente;
 	private Giocatore giocatore;
 	
-	public Partita(){
-		this.labirinto = new Labirinto();
+	public Partita(Labirinto labirinto){
+		this.labirinto = labirinto;
 		this.finita = false;
 		this.giocatore = new Giocatore();
 		this.stanzaCorrente = labirinto.getStanzaIniziale();

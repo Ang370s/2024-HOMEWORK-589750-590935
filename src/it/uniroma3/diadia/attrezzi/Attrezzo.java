@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.attrezzi;
 
+import java.lang.Comparable;
+
 
 /**
  * Una semplice classe che modella un attrezzo.
@@ -14,7 +16,7 @@ package it.uniroma3.diadia.attrezzi;
  * 
  * @version base
  */
-public class Attrezzo {
+public class Attrezzo implements Comparable<Attrezzo>{
 
 	private String nome;
 	private int peso;
@@ -51,6 +53,21 @@ public class Attrezzo {
 	 */
 	public String toString() {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
+	}
+	
+	@Override
+	public int compareTo(Attrezzo that) {
+		Integer ris = Integer.valueOf(this.getPeso()).compareTo(that.getPeso());
+		if ( ris == 0)
+			return this.getNome().compareTo(that.getNome());
+		
+		return ris;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Attrezzo that = (Attrezzo) o;
+		return (this.getNome().equals(that.getNome()) && this.getPeso() == that.getPeso());
 	}
 
 }

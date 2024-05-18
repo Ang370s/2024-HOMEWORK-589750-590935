@@ -1,7 +1,5 @@
 package it.uniroma3.diadia.ambienti;
 
-import it.uniroma3.diadia.attrezzi.Attrezzo;
-
 public class StanzaBuia extends Stanza{
 	
 	private String nomeAttrezzo;

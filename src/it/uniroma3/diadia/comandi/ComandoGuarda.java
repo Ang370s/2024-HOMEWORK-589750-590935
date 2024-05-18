@@ -10,6 +10,7 @@ public class ComandoGuarda implements Comando{
 	@Override
 	public void esegui(IO io, Partita partita) {
 		io.mostraMessaggio(partita.getStanzaCorrente().toString());
+		io.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
 		io.mostraMessaggio("CFU rimanenti: " + partita.getGiocatore().getCfu());
 	}
 
