@@ -11,8 +11,6 @@ import it.uniroma3.diadia.attrezzi.AttrezziPerPeso;
 import it.uniroma3.diadia.attrezzi.AttrezziRaggruppati;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-import it.uniroma3.diadia.giocatore.Borsa;
-
 public class BorsaTest {
 	
 	private Borsa b;
@@ -168,7 +166,7 @@ public class BorsaTest {
         assertEquals("Contenuto borsa (5kg/10kg): "
         		+ "\n	Ordinato per peso: [ a3 (1kg), a1 (2kg), a2 (2kg) ]"
         		+ "\n	Ordinato per nome: { a1 (2kg), a2 (2kg), a3 (1kg) }"
-        		+ "\n	Raggruppato per peso: (1, { a3 (1kg) } ); (2, { a2 (2kg), a1 (2kg) } ); ", b.toString());
+        		+ "\n	Raggruppato per peso: (1, { a3 (1kg) } ); (2, { a1 (2kg), a2 (2kg) } ); ", b.toString());
     }
     
     /**

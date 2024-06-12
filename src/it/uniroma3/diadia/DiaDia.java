@@ -1,7 +1,10 @@
 package it.uniroma3.diadia;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.*;
 
 /**
@@ -30,6 +33,10 @@ public class DiaDia {
 
 	private Partita partita;
 	private IO io;
+	
+	public DiaDia(IO io) {
+		this.io = io;
+	}
 
 	public DiaDia(IO io, Labirinto labirinto) {
 		this.io = io;
@@ -52,10 +59,10 @@ public class DiaDia {
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 */
 	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire;
+		AbstractComando comandoDaEseguire;
 		
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
-		comandoDaEseguire = factory.costruisciComando(istruzione);
+		FabbricaDiComandiRiflessiva factory = new FabbricaDiComandiRiflessiva();
+		comandoDaEseguire = factory.costruisciComando(istruzione, io);
 		comandoDaEseguire.esegui(this.io, this.partita);
 		
 		if (this.partita.vinta())
@@ -66,17 +73,33 @@ public class DiaDia {
 		return this.partita.isFinita();
 	}
 
-	public static void main(String[] argc) {
-		IO io = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("LabCompusOne")
-				.addAttrezzo("osso", 1)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("LabCompusOne", "Biblioteca", "ovest")
-				.addAdiacenza("Biblioteca", "LabCompusOne", "est")
-				.getLabirinto();
-;
-		DiaDia gioco = new DiaDia(io, labirinto);
-		gioco.gioca();
+	public static void main(String[] argc) throws FileNotFoundException, FormatoFileNonValidoException {
+		try (Scanner scanner = new Scanner(System.in)) {
+            IOConsole io = new IOConsole(scanner);
+        
+			Labirinto labirinto = Labirinto.newBuilder("Labirinto.txt").getLabirinto();
+					/*.addStanzaIniziale("LabCampusOne")
+					.addAttrezzo("osso", 1)
+					.addAttrezzo("chiave", 1)
+					.addStanzaVincente("Biblioteca")
+					.addStanza("Atrio")
+					.addAttrezzo("spada", 7)
+					.addAttrezzo("lanterna", 2)
+					.addStanza("N11")
+					.addPersonaggio("strega", "Sono una strega cattiva!", "LabCampusOne", null)
+					.addPersonaggio("cane", "Wof wof!", "Atrio", new Attrezzo("chiave", 1))
+					.addPersonaggio("mago", "Sono Merlino, se un attrezzo vuoi avere, a me devi chie dere", "N11", new Attrezzo("bacchetta", 1))
+					.addAdiacenza("Atrio", "LabCampusOne", "sud")
+					.addAdiacenza("LabCampusOne", "Atrio", "nord")
+					.addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
+					.addAdiacenza("Biblioteca", "LabCampusOne", "est")
+					.addAdiacenza("Atrio", "N11", "est")
+					.addAdiacenza("N11", "Atrio", "ovest")
+					.getLabirinto();*/
+	
+			DiaDia gioco = new DiaDia(io, labirinto);
+			gioco.gioca();
+			scanner.close();
+		}
 	}
 }

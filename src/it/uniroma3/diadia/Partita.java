@@ -76,4 +76,8 @@ public class Partita {
 	public Giocatore getGiocatore() {
 		return this.giocatore;
 	}
+
+	public Labirinto getLabirinto() {
+		return this.labirinto;
+	}
 }

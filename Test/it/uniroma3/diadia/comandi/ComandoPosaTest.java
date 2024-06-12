@@ -1,14 +1,16 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.comandi.ComandoPosa;
-
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 
+import java.io.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.*;
 
@@ -16,18 +18,32 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class ComandoPosaTest {
 	
-	private ComandoPosa posa;
+	private static final String DESCRIZIONE_LABIRINTO 
+	= "Stanze: iniziale\n"
+	+ "Buie: \n"
+	+ "Magiche: \n"
+	+ "Bloccate: \n"
+	+ "Inizio: iniziale\n"
+	+ "Vincente: iniziale\n"
+	+ "Attrezzi: \n"
+	+ "Mago: \n"
+	+ "Strega: \n"
+	+ "Cane: \n"
+	+ "Uscite: \n";
+	
+	private AbstractComando posa;
 	private Partita partita;
 	private IO io;
 	
 	@BeforeEach
-	void setUp() {
-		this.io = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("iniziale")
-				.getLabirinto();
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
+		this.io = new IOConsole(new Scanner(System.in));
+		Labirinto labirinto = Labirinto.newBuilder(new StringReader(DESCRIZIONE_LABIRINTO)).getLabirinto();
+				/*.addStanzaIniziale("iniziale")
+				.getLabirinto();*/
 		this.partita = new Partita(labirinto);
-		this.posa = new ComandoPosa("penna");
+		this.posa = new ComandoPosa();
+		posa.setParametro("penna");
 	}
 
 	/**

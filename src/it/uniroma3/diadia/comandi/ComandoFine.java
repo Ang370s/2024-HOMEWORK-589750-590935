@@ -4,24 +4,17 @@ import it.uniroma3.diadia.Partita;
 
 import it.uniroma3.diadia.IO;
 
-public class ComandoFine implements Comando{
-	final private String nome = "Fine";
+public class ComandoFine extends AbstractComando{
+
+	static final private String nome = "Fine";
+
+	public ComandoFine() {
+		super(nome);
+	}
 	
 	@Override
 	public void esegui(IO io, Partita partita) {
 		io.mostraMessaggio("Grazie di aver giocato!");
-	}
-	
-	@Override
-	public void setParametro(String parametro) { }
-	
-	@Override
-	public String getNome() {
-		return this.nome;
-	}
-	
-	@Override
-	public String getParametro() {
-		return null;
+		partita.setFinita();
 	}
 }

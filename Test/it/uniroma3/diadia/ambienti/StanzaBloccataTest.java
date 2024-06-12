@@ -4,10 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
-import it.uniroma3.diadia.ambienti.StanzaBloccata;
-
-import it.uniroma3.diadia.ambienti.Stanza;
-
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class StanzaBloccataTest {
@@ -55,7 +51,8 @@ class StanzaBloccataTest {
 	 */
 	@Test
 	void testGetDescrizione() {
-		assertEquals("Stanza Bloccata\nUscite:  sud\nAttrezzi nella stanza: \nDirezione bloccata se non hai l'attrezzo \"chiave\": sud", stanzaBloccata.getDescrizione());
+		assertEquals("Stanza Bloccata\nUscite:  SUD\nAttrezzi nella stanza: \n"
+				+ "Direzione bloccata se non hai l'attrezzo \"chiave\": SUD", stanzaBloccata.getDescrizione());
 	}
 
 }

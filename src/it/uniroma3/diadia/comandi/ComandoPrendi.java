@@ -6,18 +6,17 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 import it.uniroma3.diadia.IO;
 
-public class ComandoPrendi implements Comando{
-	final private String nome = "Prendi";
+public class ComandoPrendi extends AbstractComando{
 	
-	String nomeAttrezzo;
+	static final private String nome = "Prendi";
 	
-	public ComandoPrendi(String nomeAttrezzo) {
-		this.nomeAttrezzo = nomeAttrezzo;
+	public ComandoPrendi() {
+		super(nome);
 	}
 	
 	@Override
 	public void esegui(IO io, Partita partita) {
-		Attrezzo attrezzo = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+		Attrezzo attrezzo = partita.getStanzaCorrente().getAttrezzo(this.getParametro());
         if(attrezzo == null)
         	io.mostraMessaggio("Questo attrezzo non e' presente nella stanza");
         else {
@@ -27,20 +26,5 @@ public class ComandoPrendi implements Comando{
             } else
             	io.mostraMessaggio("Non c'e' abbastanza spazio nella borsa per contenere l'oggetto.");
         }
-	}
-	
-	@Override
-	public void setParametro(String parametro) { 
-		this.nomeAttrezzo = parametro;
-	}
-	
-	@Override
-	public String getNome() {
-		return this.nome;
-	}
-	
-	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
 	}
 }

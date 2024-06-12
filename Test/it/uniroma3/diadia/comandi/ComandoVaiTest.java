@@ -1,30 +1,46 @@
 package it.uniroma3.diadia.comandi;
-
+import java.io.*;
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.*;
 
 class ComandoVaiTest {
+	private static final String DESCRIZIONE_LABIRINTO 
+	= "Stanze: iniziale, vincente\n"
+	+ "Buie: \n"
+	+ "Magiche: \n"
+	+ "Bloccate: \n"
+	+ "Inizio: iniziale\n"
+	+ "Vincente: vincente\n"
+	+ "Attrezzi: \n"
+	+ "Mago: \n"
+	+ "Strega: \n"
+	+ "Cane: \n"
+	+ "Uscite: iniziale sud vincente\n"; 
 	
 	private Partita partita;
-	private ComandoVai vai;
+	private AbstractComando vai;
 	private IO io;
 
 	@BeforeEach
-	void setUp() {
-		this.io = new IOConsole();
-		vai = new ComandoVai("sud");
-		Labirinto labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("iniziale")
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
+		this.io = new IOConsole(new Scanner(System.in));
+		vai = new ComandoVai();
+		vai.setParametro("sud");
+		Labirinto labirinto = Labirinto.newBuilder(new StringReader(DESCRIZIONE_LABIRINTO)).getLabirinto();
+				/*.addStanzaIniziale("iniziale")
 				.addStanza("vincente")
 				.addAdiacenza("iniziale", "vincente", "sud")
 				.addAdiacenza("vincente", "iniziale", "nord")
-				.getLabirinto();
+				.getLabirinto();*/
 				
 		this.partita = new Partita(labirinto);
 	}

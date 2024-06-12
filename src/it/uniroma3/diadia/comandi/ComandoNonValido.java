@@ -4,24 +4,16 @@ import it.uniroma3.diadia.Partita;
 
 import it.uniroma3.diadia.IO;
 
-public class ComandoNonValido implements Comando{
-	final private String nome = "Non valido";
+public class ComandoNonValido extends AbstractComando{
+
+	static final private String nome = "Non valido";
+
+	public ComandoNonValido() {
+		super(nome);
+	}
 	
 	@Override
 	public void esegui(IO io, Partita partita) {
 		io.mostraMessaggio("Comando non valido...");
-	}
-
-	@Override
-	public void setParametro(String parametro) { }
-	
-	@Override
-	public String getNome() {
-		return this.nome;
-	}
-	
-	@Override
-	public String getParametro() {
-		return null;
 	}
 }

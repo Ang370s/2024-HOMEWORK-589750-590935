@@ -1,12 +1,12 @@
 package it.uniroma3.diadia.ambienti;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.Collection;
 import java.util.HashMap;
-
 
 /**
  * Classe modella una stanza in un gioco di ruolo.
@@ -23,14 +23,16 @@ import java.util.HashMap;
  * @version base
 */
 
-public class Stanza {
+public class Stanza implements Comparable<Stanza>{
 
 	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
 	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 
 	private String nome;
 	private Map<String, Attrezzo> attrezzi;
-    private Map<String, Stanza> stanzeAdiacenti;
+    private Map<Direzione, Stanza> stanzeAdiacenti;
+    
+    private AbstractPersonaggio personaggio;
 
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -50,7 +52,15 @@ public class Stanza {
      */
     public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
     	if (this.stanzeAdiacenti.size() < NUMERO_MASSIMO_DIREZIONI) {
-            this.stanzeAdiacenti.put(direzione, stanza);
+    		Direzione dir;
+    		try {
+    			dir = Direzione.valueOf(direzione.toUpperCase());
+    		} catch (IllegalArgumentException e) {
+    			//caso in cui viene specificata una direzione non contemplata dall'enum Direzione
+    			System.out.println("Direzione inesistente");
+    			return;
+    		}
+            this.stanzeAdiacenti.put(dir, stanza);
         }
     }
 
@@ -59,7 +69,15 @@ public class Stanza {
      * @param direzione
      */
 	public Stanza getStanzaAdiacente(String direzione) {
-		return this.stanzeAdiacenti.get(direzione);
+		Direzione dir;
+		try {
+			dir = Direzione.valueOf(direzione.toUpperCase());
+		} catch (IllegalArgumentException e) {
+			//caso in cui viene specificata una direzione non contemplata dall'enum Direzione
+			System.out.println("Direzione inesistente");
+			return null;
+		}
+		return this.stanzeAdiacenti.get(dir);
     }
 
     /**
@@ -74,8 +92,16 @@ public class Stanza {
     	return this.attrezzi;
     }
     
-    public Map<String, Stanza> getMapStanzeAdiacenti() {
+    public Map<Direzione, Stanza> getMapStanzeAdiacenti() {
     	return this.stanzeAdiacenti;
+    }
+    
+    public void setPersonaggio(AbstractPersonaggio personaggio) {
+    	this.personaggio = personaggio;
+    }
+    
+    public AbstractPersonaggio getPersonaggio() {
+    	return this.personaggio;
     }
 
     /**
@@ -118,13 +144,15 @@ public class Stanza {
     	StringBuilder risultato = new StringBuilder();
     	risultato.append(this.nome);
     	risultato.append("\nUscite: ");
-    	for (String direzione : this.stanzeAdiacenti.keySet())
+    	for (Direzione direzione : this.stanzeAdiacenti.keySet())
     		if(direzione != null)
     			risultato.append(" " + direzione);
     	risultato.append("\nAttrezzi nella stanza: ");
     	for (Attrezzo attrezzo : this.attrezzi.values())
     		if(attrezzo != null)
     			risultato.append(attrezzo.toString()+" ");
+    	if(this.getPersonaggio() != null)
+    		risultato.append("\nPersonaggio: " + this.getPersonaggio().getNome());
     		
     	return risultato.toString();
     }
@@ -161,7 +189,7 @@ public class Stanza {
 	 * Restituisce la collezione contente le direzioni della stanza
 	 * @return
 	 */
-	public Set<String> getDirezioni() {
+	public Set<Direzione> getDirezioni() {
 	    return this.stanzeAdiacenti.keySet();
     }
 	
@@ -169,5 +197,13 @@ public class Stanza {
 	public boolean equals(Object o) {
 		Stanza that = (Stanza)o;
 		return (this.getNome().equals(that.getNome()));
+	}
+
+	@Override
+	public int compareTo(Stanza that) {
+	    if (that == null)
+	        throw new NullPointerException("L'oggetto Stanza comparato non può essere null");
+			
+		return this.getAttrezzi().size() - that.getAttrezzi().size();
 	}
 }

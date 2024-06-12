@@ -6,41 +6,24 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 import it.uniroma3.diadia.IO;
 
-public class ComandoPosa implements Comando{
-	final private String nome = "Posa";
+public class ComandoPosa extends AbstractComando{
+	static final private String nome = "Posa";
 	
-	String nomeAttrezzo;
-	
-	public ComandoPosa(String nomeAttrezzo) {
-		this.nomeAttrezzo = nomeAttrezzo;
+	public ComandoPosa() {
+		super(nome);
 	}
 	
 	@Override
 	public void esegui(IO io, Partita partita) {
-		Attrezzo attrezzo = partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
+		Attrezzo attrezzo = partita.getGiocatore().getBorsa().getAttrezzo(this.getParametro());
 	       if(attrezzo == null)
 	    	   io.mostraMessaggio("Questo attrezzo non e' presente nella tua borsa");
 	       else {
 	    	   if(partita.getStanzaCorrente().addAttrezzo(attrezzo)) {
-	    		   partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
+	    		   partita.getGiocatore().getBorsa().removeAttrezzo(this.getParametro());
 	    		   io.mostraMessaggio("Attrezzo posato nella stanza");
 	           } else
 	        	   io.mostraMessaggio("Non e' possibile posare l'attrezzo qui perche' la stanza e' piena");
 	        }
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro; 
-	}
-	
-	@Override
-	public String getNome() {
-		return this.nome;
-	}
-	
-	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
 	}
 }
